@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.model2.mvc.service.domain.User;
@@ -35,6 +36,20 @@ public class LogonCheckInterceptor extends HandlerInterceptorAdapter {
 														Object handler) throws Exception {
 		
 		System.out.println("\n[ LogonCheckInterceptor start........]");
+		
+        if (handler instanceof HandlerMethod) {
+            HandlerMethod handlerMethod = (HandlerMethod) handler;
+            String methodName = handlerMethod.getMethod().getName();
+            String className = handlerMethod.getBeanType().getSimpleName();
+            System.out.println(methodName + " " + className);
+
+            // 특정 메서드 및 클래스 이름을 검사하여 건너뛰기
+            if ("ProductController".equals(className) && "listProduct".equals(methodName) || "getProduct".equals(methodName)) {
+                // 특정 메서드에 대해 인터셉터를 적용하지 않음
+            	System.out.println("[ LogonCheckInterceptor end........]\n");
+                return true;
+            }
+        }
 		
 		//==> 로그인 유무확인
 		HttpSession session = request.getSession(true);
