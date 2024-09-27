@@ -89,7 +89,7 @@ public class ProductController {
 	@RequestMapping("/updateProduct.do")
 	public String updateProduct( @ModelAttribute("product") Product product ,@RequestParam("prodNo") int prodNo, Model model , HttpSession session) throws Exception{
 
-		System.out.println("/updateProduct.do");
+		System.out.println("/updateProduct.do"+prodNo);
 		//Business Logic
 		productService.updateProduct(product);
 		
@@ -113,6 +113,8 @@ public class ProductController {
 		
 		Page resultPage = new Page( search.getCurrentPage(), ((Integer)map.get("totalCount")).intValue(), pageUnit, pageSize);
 		System.out.println(resultPage);
+		
+		System.out.println(map.get("list").toString());
 		
 		// Model °ú View ¿¬°á
 		model.addAttribute("list", map.get("list"));

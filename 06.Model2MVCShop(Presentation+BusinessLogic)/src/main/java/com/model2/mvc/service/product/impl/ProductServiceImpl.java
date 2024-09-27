@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.Product;
@@ -22,10 +23,11 @@ public class ProductServiceImpl implements ProductService {
 	
 	//Constructor
 	public ProductServiceImpl() {
-		productDao = new ProductDaoImpl();
+		System.out.println(this.getClass());
 	}
 	
 	//method
+	@Transactional
 	public void addProduct(Product product) throws Exception {
 		productDao.addProduct(product);
 	}
@@ -45,6 +47,7 @@ public class ProductServiceImpl implements ProductService {
 		return map;
 	}
 
+	@Transactional
 	public void updateProduct(Product product) throws Exception {
 		productDao.updateProduct(product);
 	}

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.model2.mvc.common.Search;
 import com.model2.mvc.service.domain.User;
@@ -32,6 +33,7 @@ public class UserServiceImpl implements UserService{
 	}
 
 	///Method
+	@Transactional
 	public void addUser(User user) throws Exception {
 		userDao.addUser(user);
 	}
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService{
 		return map;
 	}
 
+	@Transactional
 	public void updateUser(User user) throws Exception {
 		userDao.updateUser(user);
 	}
